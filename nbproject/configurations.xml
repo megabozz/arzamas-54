@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="SourceFiles"
+                   displayName="Исходные файлы"
+                   projectFiles="true">
+      <logicalFolder name="src" displayName="src" projectFiles="true">
+        <itemPath>src/cgi.cpp</itemPath>
+        <itemPath>src/datastrings.cpp</itemPath>
+        <itemPath>src/json.cpp</itemPath>
+        <itemPath>src/kkm.cpp</itemPath>
+        <itemPath>src/kkm_functions.cpp</itemPath>
+        <itemPath>src/main.cpp</itemPath>
+        <itemPath>src/token.cpp</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="HeaderFiles"
+                   displayName="Файлы заголовков"
+                   projectFiles="true">
+      <logicalFolder name="src" displayName="src" projectFiles="true">
+        <logicalFolder name="include" displayName="include" projectFiles="true">
+          <itemPath>src/include/abstract__event.h</itemPath>
+          <itemPath>src/include/abstract_error_handler.h</itemPath>
+          <itemPath>src/include/dto_const.h</itemPath>
+          <itemPath>src/include/dto_errors.h</itemPath>
+          <itemPath>src/include/idisplay.h</itemPath>
+          <itemPath>src/include/idisplay_c.h</itemPath>
+          <itemPath>src/include/idtobase.h</itemPath>
+          <itemPath>src/include/ifptr.h</itemPath>
+          <itemPath>src/include/ifptr_c.h</itemPath>
+          <itemPath>src/include/iinput.h</itemPath>
+          <itemPath>src/include/iinput_c.h</itemPath>
+          <itemPath>src/include/ipaycard.h</itemPath>
+          <itemPath>src/include/ipaycard_c.h</itemPath>
+          <itemPath>src/include/ircpprn.h</itemPath>
+          <itemPath>src/include/ircpprn_c.h</itemPath>
+          <itemPath>src/include/iscale.h</itemPath>
+          <itemPath>src/include/iscale_c.h</itemPath>
+          <itemPath>src/include/iscalelp.h</itemPath>
+        </logicalFolder>
+        <itemPath>src/cgi.h</itemPath>
+        <itemPath>src/datastrings.h</itemPath>
+        <itemPath>src/json.h</itemPath>
+        <itemPath>src/json.hpp</itemPath>
+        <itemPath>src/kkm.h</itemPath>
+        <itemPath>src/token.h</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Файлы ресурсов"
+                   projectFiles="true">
+      <logicalFolder name="lib" displayName="lib" projectFiles="true">
+        <logicalFolder name="linux" displayName="linux" projectFiles="true">
+          <logicalFolder name="armhf" displayName="armhf" projectFiles="true">
+            <itemPath>lib/linux/armhf/libfptr.so</itemPath>
+          </logicalFolder>
+          <logicalFolder name="x86" displayName="x86" projectFiles="true">
+          </logicalFolder>
+          <logicalFolder name="x86_64" displayName="x86_64" projectFiles="true">
+            <itemPath>lib/linux/x86_64/libfptr.so</itemPath>
+          </logicalFolder>
+        </logicalFolder>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Файлы тестов"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Важные файлы"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>lib</Elem>
+    <Elem>src</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <standard>10</standard>
+        </cTool>
+        <ccTool>
+          <standard>8</standard>
+        </ccTool>
+        <linkerTool>
+          <output>kkmservice.cgi</output>
+          <commandLine>./lib/x86_64/libfptr.so -luuid</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="lib/linux/armhf/libfptr.so" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lib/linux/x86_64/libfptr.so" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cgi.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/cgi.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/datastrings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/datastrings.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/abstract__event.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/abstract_error_handler.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/include/dto_const.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/dto_errors.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/idisplay.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/idisplay_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/idtobase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ifptr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ifptr_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/iinput.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/iinput_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ipaycard.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ipaycard_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ircpprn.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ircpprn_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/iscale.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/iscale_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/iscalelp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/json.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/json.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/json.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/kkm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/kkm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/kkm_functions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/token.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/token.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>0</developmentMode>
+          <standard>10</standard>
+          <commandLine>-Os</commandLine>
+          <useLinkerLibraries>false</useLinkerLibraries>
+        </cTool>
+        <ccTool>
+          <developmentMode>0</developmentMode>
+          <standard>8</standard>
+          <commandLine>-Os</commandLine>
+          <useLinkerLibraries>false</useLinkerLibraries>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <linkerTool>
+          <output>kkmservice.cgi</output>
+          <stripSymbols>true</stripSymbols>
+          <commandLine>lib/linux/armhf/libfptr.so -luuid</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="lib/linux/armhf/libfptr.so" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lib/linux/x86_64/libfptr.so" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cgi.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/cgi.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/datastrings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/datastrings.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/abstract__event.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/abstract_error_handler.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/include/dto_const.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/dto_errors.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/idisplay.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/idisplay_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/idtobase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ifptr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ifptr_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/iinput.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/iinput_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ipaycard.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ipaycard_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ircpprn.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ircpprn_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/iscale.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/iscale_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/iscalelp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/json.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/json.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/json.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/kkm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/kkm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/kkm_functions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/token.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/token.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Arm" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>0</developmentMode>
+          <commandLine>-Os</commandLine>
+        </cTool>
+        <ccTool>
+          <developmentMode>0</developmentMode>
+          <commandLine>-Os</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>kkmservice.cgi</output>
+          <stripSymbols>true</stripSymbols>
+          <commandLine>-luuid lib/armhf/libfptr.so</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="lib/linux/armhf/libfptr.so" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lib/linux/x86_64/libfptr.so" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cgi.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/cgi.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/datastrings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/datastrings.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/abstract__event.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/abstract_error_handler.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/include/dto_const.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/dto_errors.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/idisplay.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/idisplay_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/idtobase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ifptr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ifptr_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/iinput.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/iinput_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ipaycard.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ipaycard_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ircpprn.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/ircpprn_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/iscale.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/iscale_c.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/include/iscalelp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/json.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/json.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/json.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/kkm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/kkm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/kkm_functions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/token.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/token.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
