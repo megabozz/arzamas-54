@@ -26,29 +26,29 @@ KKM::~KKM() {
     if (ifptr) {
         ReleaseFptrInterface(&ifptr);
     }
-    if (token) {
-        delete token;
-        token = nullptr;
-    }
+//    if (token) {
+//        delete token;
+//        token = nullptr;
+//    }
 }
 
-int KKM::tokenInit(std::string path) {
-    token = new TOKEN(path);
-    return 0;
-}
+//int KKM::tokenInit(std::string path) {
+//    token = new TOKEN(path);
+//    return 0;
+//}
 
-int KKM::checkAuthToken(json in, json& out) {
-    if (in.find(DS::fld_AUTHTOKEN) != in.end()) {
-        if (in[DS::fld_AUTHTOKEN] != kkm->token->number) {
-            kkm->ErrorCode = DS::code_AUTH_TOKEN_INCORRECT;
-            kkm->errorDesc = DS::msg_AUTHTOKEN_INCORRECT;
-        }
-    } else {
-        kkm->ErrorCode = DS::code_AUTH_TOKEN_REQUIRED;
-        kkm->errorDesc = DS::msg_AUTHTOKEN_REQUIRED;
-    }
-    return kkm->ErrorCode;
-}
+//int KKM::checkAuthToken(json in, json& out) {
+//    if (in.find(DS::fld_AUTHTOKEN) != in.end()) {
+//        if (in[DS::fld_AUTHTOKEN] != kkm->token->number) {
+//            kkm->ErrorCode = DS::code_AUTH_TOKEN_INCORRECT;
+//            kkm->errorDesc = DS::msg_AUTHTOKEN_INCORRECT;
+//        }
+//    } else {
+//        kkm->ErrorCode = DS::code_AUTH_TOKEN_REQUIRED;
+//        kkm->errorDesc = DS::msg_AUTHTOKEN_REQUIRED;
+//    }
+//    return kkm->ErrorCode;
+//}
 
 int KKM::checkError() {
     errorDesc = "OK";
@@ -135,7 +135,7 @@ KKM::function_t KKM::functions[] = {
             if (kkm->enable() == 0) {
                 CHECKKKM kkm->ifptr->GetStatus();
 
-                out[DS::fld_AUTHTOKEN] = kkm->token->number;
+//                out[DS::fld_AUTHTOKEN] = kkm->token->number;
 
                 CHECKKKM kkm->ifptr->get_INN(w, 63);
                 out["INN"] = KKM::utf8s(w);
@@ -261,7 +261,7 @@ KKM::function_t KKM::functions[] = {
             CHECKKKM kkm->ifptr->put_ReportType(TED::Fptr::ReportZ); kkm->checkError();
             CHECKKKM kkm->ifptr->Report(); kkm->checkError();
 
-            kkm->token->clear();
+//            kkm->token->clear();
             
             KKMEXEC(DS::cmd_STATUS);
             
@@ -274,17 +274,17 @@ KKM::function_t KKM::functions[] = {
         "SELL", [](KKM* kkm, json in, json & out) -> int {
             kkm->enable() CHECKERROR;
             int s_opened = kkm->checkSessionOpened() CHECKERROR;
-            if (s_opened == 1) {
-                if (kkm->checkAuthToken(in, out) < 0) {
-                    return kkm->ErrorCode;
-                }
-            } else {
-                kkm->token->regenerate();
-            }
-            if (kkm->token->number.empty()) {
-                kkm->token->regenerate();
-                out[DS::fld_AUTHTOKEN] = kkm->token->number;
-            }
+//            if (s_opened == 1) {
+//                if (kkm->checkAuthToken(in, out) < 0) {
+//                    return kkm->ErrorCode;
+//                }
+//            } else {
+//                kkm->token->regenerate();
+//            }
+//            if (kkm->token->number.empty()) {
+//                kkm->token->regenerate();
+//                out[DS::fld_AUTHTOKEN] = kkm->token->number;
+//            }
             json cheque = in["cheque"];
             json positions = cheque["positions"];
             json cp = {};

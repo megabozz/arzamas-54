@@ -40,8 +40,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/json.o \
 	${OBJECTDIR}/src/kkm.o \
 	${OBJECTDIR}/src/kkm_functions.o \
-	${OBJECTDIR}/src/main.o \
-	${OBJECTDIR}/src/token.o
+	${OBJECTDIR}/src/main.o
 
 
 # C Compiler Flags
@@ -96,11 +95,6 @@ ${OBJECTDIR}/src/main.o: src/main.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
-
-${OBJECTDIR}/src/token.o: src/token.cpp
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/token.o src/token.cpp
 
 # Subprojects
 .build-subprojects:

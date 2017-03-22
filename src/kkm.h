@@ -22,12 +22,13 @@
 #include <sys/utsname.h>
 #include <sys/time.h>
 #include <time.h>
+#include <unistd.h>
 
 #include "include/idtobase.h"
 #include "include/dto_errors.h"
 #include "include/ifptr.h"
 #include "json.h"
-#include "token.h"
+//#include "token.h"
 #include "datastrings.h"
 
 
@@ -51,7 +52,7 @@ public:
 
     static int getBarcodeType(const std::string&);
     
-    int tokenInit(std::string path);
+//    int tokenInit(std::string path);
     int checkSessionOpened();
     
 
@@ -59,7 +60,7 @@ public:
     std::string errorDesc = "";
     TED::Fptr::IFptr *ifptr = nullptr;
 
-    int checkAuthToken(json, json &);
+//    int checkAuthToken(json, json &);
 
     int cmd_cancelcheck(json, json &);
     int cmd_closecheck(json, json &);
@@ -129,7 +130,7 @@ public:
     int set_systemtime( json in, json & out);
     int set_systemdatetime( json in, json & out);
     
-    TOKEN *token = nullptr;
+//    TOKEN *token = nullptr;
     struct function_t {
         const char *name;
         int(*fu) (KKM*, json, json &);

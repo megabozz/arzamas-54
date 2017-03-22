@@ -81,7 +81,7 @@ int main(int argc, char** argv, char **envp) {
                 }
 
                 KKM kkm;
-                kkm.tokenInit(sessionPath);
+//                kkm.tokenInit(sessionPath);
 
                 if (!config.empty()) {
                     kkm.set_settings(KKM::utf8w(config));

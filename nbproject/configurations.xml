@@ -11,7 +11,6 @@
         <itemPath>src/kkm.cpp</itemPath>
         <itemPath>src/kkm_functions.cpp</itemPath>
         <itemPath>src/main.cpp</itemPath>
-        <itemPath>src/token.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="HeaderFiles"
@@ -163,8 +162,6 @@
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/token.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/token.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
@@ -264,8 +261,6 @@
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/token.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/token.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
@@ -354,8 +349,6 @@
       <item path="src/kkm_functions.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/token.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/token.h" ex="false" tool="3" flavor2="0">
       </item>
