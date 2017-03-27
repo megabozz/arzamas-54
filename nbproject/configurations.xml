@@ -49,15 +49,8 @@
                    displayName="Файлы ресурсов"
                    projectFiles="true">
       <logicalFolder name="lib" displayName="lib" projectFiles="true">
-        <logicalFolder name="linux" displayName="linux" projectFiles="true">
-          <logicalFolder name="armhf" displayName="armhf" projectFiles="true">
-            <itemPath>lib/linux/armhf/libfptr.so</itemPath>
-          </logicalFolder>
-          <logicalFolder name="x86" displayName="x86" projectFiles="true">
-          </logicalFolder>
-          <logicalFolder name="x86_64" displayName="x86_64" projectFiles="true">
-            <itemPath>lib/linux/x86_64/libfptr.so</itemPath>
-          </logicalFolder>
+        <logicalFolder name="armhf" displayName="armhf" projectFiles="true">
+          <itemPath>lib/armhf/libfptr.so</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
@@ -97,9 +90,7 @@
           <commandLine>./lib/x86_64/libfptr.so -luuid</commandLine>
         </linkerTool>
       </compileType>
-      <item path="lib/linux/armhf/libfptr.so" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="lib/linux/x86_64/libfptr.so" ex="false" tool="3" flavor2="0">
+      <item path="lib/armhf/libfptr.so" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/cgi.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -196,9 +187,7 @@
           <commandLine>lib/linux/armhf/libfptr.so -luuid</commandLine>
         </linkerTool>
       </compileType>
-      <item path="lib/linux/armhf/libfptr.so" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="lib/linux/x86_64/libfptr.so" ex="false" tool="3" flavor2="0">
+      <item path="lib/armhf/libfptr.so" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/cgi.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -266,7 +255,7 @@
     </conf>
     <conf name="Arm" type="1">
       <toolsSet>
-        <compilerSet>default</compilerSet>
+        <compilerSet>GNU|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
@@ -277,17 +266,16 @@
         </cTool>
         <ccTool>
           <developmentMode>0</developmentMode>
+          <standard>8</standard>
           <commandLine>-Os</commandLine>
         </ccTool>
         <linkerTool>
           <output>kkmservice.cgi</output>
           <stripSymbols>true</stripSymbols>
-          <commandLine>-luuid lib/armhf/libfptr.so</commandLine>
+          <commandLine>lib/armhf/libfptr.so</commandLine>
         </linkerTool>
       </compileType>
-      <item path="lib/linux/armhf/libfptr.so" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="lib/linux/x86_64/libfptr.so" ex="false" tool="3" flavor2="0">
+      <item path="lib/armhf/libfptr.so" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/cgi.cpp" ex="false" tool="1" flavor2="0">
       </item>

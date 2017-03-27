@@ -16,13 +16,16 @@
 
 #include <string>
 #include <locale>
-#include <codecvt>
+//#include <codecvt>
 #include <regex>
 #include <iconv.h>
 #include <sys/utsname.h>
 #include <sys/time.h>
 #include <time.h>
 #include <unistd.h>
+
+#include <boost/locale/encoding_utf.hpp>
+using boost::locale::conv::utf_to_utf;
 
 #include "include/idtobase.h"
 #include "include/dto_errors.h"

@@ -537,11 +537,13 @@ std::wstring KKM::s2ws(const std::string& s) {
 }
 
 std::string KKM::utf8s(std::wstring in) {
-    std::wstring_convert < std::codecvt_utf8<wchar_t>, wchar_t> conv;
-    return conv.to_bytes(in).data();
+    return utf_to_utf<char>(in.c_str(), in.c_str() + in.size());
+//    std::wstring_convert < std::codecvt_utf8<wchar_t>, wchar_t> conv;
+//    return conv.to_bytes(in).data();
 }
 
 std::wstring KKM::utf8w(std::string in) {
-    std::wstring_convert < std::codecvt_utf8<wchar_t>, wchar_t> conv;
-    return conv.from_bytes(in).data();
+    return utf_to_utf<wchar_t>(in.c_str(), in.c_str() + in.size());
+//    std::wstring_convert < std::codecvt_utf8<wchar_t>, wchar_t> conv;
+//    return conv.from_bytes(in).data();
 }

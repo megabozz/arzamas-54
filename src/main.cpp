@@ -20,7 +20,7 @@
 #include "cgi.h"
 #include "kkm.h"
 #include "datastrings.h"
-#include "token.h"
+//#include "token.h"
 
 
 
@@ -81,6 +81,7 @@ int main(int argc, char** argv, char **envp) {
                 }
 
                 KKM kkm;
+                
 //                kkm.tokenInit(sessionPath);
 
                 if (!config.empty()) {

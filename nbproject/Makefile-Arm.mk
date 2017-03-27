@@ -64,37 +64,37 @@ LDLIBSOPTIONS=
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk kkmservice.cgi
 
 kkmservice.cgi: ${OBJECTFILES}
-	${LINK.cc} -o kkmservice.cgi ${OBJECTFILES} ${LDLIBSOPTIONS} -luuid lib/armhf/libfptr.so -s
+	${LINK.cc} -o kkmservice.cgi ${OBJECTFILES} ${LDLIBSOPTIONS} lib/armhf/libfptr.so -s
 
 ${OBJECTDIR}/src/cgi.o: src/cgi.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/cgi.o src/cgi.cpp
+	$(COMPILE.cc) -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/cgi.o src/cgi.cpp
 
 ${OBJECTDIR}/src/datastrings.o: src/datastrings.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/datastrings.o src/datastrings.cpp
+	$(COMPILE.cc) -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/datastrings.o src/datastrings.cpp
 
 ${OBJECTDIR}/src/json.o: src/json.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/json.o src/json.cpp
+	$(COMPILE.cc) -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/json.o src/json.cpp
 
 ${OBJECTDIR}/src/kkm.o: src/kkm.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/kkm.o src/kkm.cpp
+	$(COMPILE.cc) -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/kkm.o src/kkm.cpp
 
 ${OBJECTDIR}/src/kkm_functions.o: src/kkm_functions.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/kkm_functions.o src/kkm_functions.cpp
+	$(COMPILE.cc) -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/kkm_functions.o src/kkm_functions.cpp
 
 ${OBJECTDIR}/src/main.o: src/main.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+	$(COMPILE.cc) -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
 
 # Subprojects
 .build-subprojects:
