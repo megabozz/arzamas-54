@@ -75,7 +75,7 @@ int KKM::checkError() {
             v.resize(size + 1);
             ifptr->get_ResultDescription(&v[0], v.size());
         }
-        resultDescription = std::wstring(v.begin(), v.end());
+        resultDescription = std::wstring(v.begin(), v.end()).c_str();
 
         if (ErrorCode == EC_INVALID_PARAM) {
             std::vector<wchar_t> v(256);
@@ -89,7 +89,7 @@ int KKM::checkError() {
                 v.resize(size + 1);
                 ifptr->get_ResultDescription(&v[0], v.size());
             }
-            badParamDescription = std::wstring(v.begin(), v.end());
+            badParamDescription = std::wstring(v.begin(), v.end()).c_str();
         }
 
         if (badParamDescription.empty()) {
@@ -490,6 +490,20 @@ KKM::function_t KKM::functions[] = {
         DS::cmd_SET_TIME, [](KKM* kkm, json in, json & out) -> int {
             kkm->enable() CHECKERROR;
             kkm->set_time(in, out);
+            KKMEXEC(DS::cmd_STATUS);
+            return kkm->ErrorCode;
+        }
+    },
+    {
+        DS::cmd_SET_KKMSYSTEMTIME, [](KKM* kkm, json in, json & out) -> int {
+            json t;
+            kkm->get_systemdate({}, t);
+            kkm->get_systemtime({}, t);
+            t["date"] = t["Date"];
+            t["time"] = t["Time"];
+            kkm->enable() CHECKERROR;
+            kkm->set_date(t, out);
+            kkm->set_time(t, out);
             KKMEXEC(DS::cmd_STATUS);
             return kkm->ErrorCode;
         }

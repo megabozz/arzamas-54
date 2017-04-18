@@ -44,6 +44,7 @@ public:
     static constexpr const char* cmd_SET_SYSTEMDATETIME = "SET_SYSTEMDATETIME";
     static constexpr const char* cmd_SET_SYSTEMTIME = "SET_SYSTEMTIME";
     static constexpr const char* cmd_SET_SYSTEMDATE = "SET_SYSTEMDATE";
+    static constexpr const char* cmd_SET_KKMSYSTEMTIME = "SET_KKMSYSTEMTIME";
     
     
     static constexpr const char* fld_VALUE = "value";

@@ -64,7 +64,7 @@ LDLIBSOPTIONS=
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk kkmservice.cgi
 
 kkmservice.cgi: ${OBJECTFILES}
-	${LINK.cc} -o kkmservice.cgi ${OBJECTFILES} ${LDLIBSOPTIONS} lib/armhf/libfptr.so -s
+	${LINK.cc} -o kkmservice.cgi ${OBJECTFILES} ${LDLIBSOPTIONS} libfptr.so -s
 
 ${OBJECTDIR}/src/cgi.o: src/cgi.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
