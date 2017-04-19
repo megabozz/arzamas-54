@@ -30,6 +30,7 @@ std::string ED;
 int main(int argc, char** argv, char **envp) {
     char** envi;
     json result = {};
+    //result = result.unflatten();
     json in;
     json out;
     json pd;
@@ -49,6 +50,7 @@ int main(int argc, char** argv, char **envp) {
 
     if(argc == 2){
         postdata = argv[1];
+//        postdata = "{\"command\":\"SET_DATE\",\"parameters\":{\"date\":\"2017-04-20\"}}";
         env[CGI::REQUEST_METHOD] = CGI::REQUEST_METHOD_POST;
         
     }
@@ -107,6 +109,7 @@ int main(int argc, char** argv, char **envp) {
     result["errorCode"] = EC;
     result["errorDescription"] = ED;
     result["responseData"] = out;
+    
     postdata = result.dump(4);
     CGI::sendResponse(postdata);
     return 0;

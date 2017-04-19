@@ -12,7 +12,7 @@
  */
 
 #include "kkm.h"
-
+#include <exception>
 //#define CHECKERROR ;if(kkm->checkError() != EC_OK){return kkm->ErrorCode;}
 //#define KEXEC kkm->ErrorCode == EC_OK && kkm->ifptr
 
@@ -26,10 +26,10 @@ KKM::~KKM() {
     if (ifptr) {
         ReleaseFptrInterface(&ifptr);
     }
-//    if (token) {
-//        delete token;
-//        token = nullptr;
-//    }
+    //    if (token) {
+    //        delete token;
+    //        token = nullptr;
+    //    }
 }
 
 //int KKM::tokenInit(std::string path) {
@@ -133,41 +133,44 @@ KKM::function_t KKM::functions[] = {
             kkm->ErrorCode = EC_OK;
 
             if (kkm->enable() == 0) {
-                CHECKKKM kkm->ifptr->GetStatus();
 
-//                out[DS::fld_AUTHTOKEN] = kkm->token->number;
 
-                CHECKKKM kkm->ifptr->get_INN(w, 63);
+                kkm->ifptr->GetStatus();
+
+                //                out[DS::fld_AUTHTOKEN] = kkm->token->number;
+
+                kkm->ifptr->get_INN(w, 63);
                 out["INN"] = KKM::utf8s(w);
-                CHECKKKM kkm->ifptr->get_SummPointPosition(&i);
+                kkm->ifptr->get_SummPointPosition(&i);
                 out["SummPointPosition"] = i;
-                CHECKKKM kkm->ifptr->get_CheckState(&i);
+                kkm->ifptr->get_CheckState(&i);
                 out["CheckState"] = i;
-                CHECKKKM kkm->ifptr->get_CheckNumber(&i);
+                kkm->ifptr->get_CheckNumber(&i);
                 out["CheckNumber"] = i;
-                CHECKKKM kkm->ifptr->get_DocNumber(&i);
+                kkm->ifptr->get_DocNumber(&i);
                 out["DocNumber"] = i;
-                CHECKKKM kkm->ifptr->get_CharLineLength(&i);
+                kkm->ifptr->get_CharLineLength(&i);
                 out["CharLineLength"] = i;
-                CHECKKKM kkm->ifptr->get_PixelLineLength(&i);
+                kkm->ifptr->get_PixelLineLength(&i);
                 out["PixelLineLength"] = i;
-                CHECKKKM kkm->ifptr->get_RcpCharLineLength(&i);
+                kkm->ifptr->get_RcpCharLineLength(&i);
                 out["RcpCharLineLength"] = i;
-                CHECKKKM kkm->ifptr->get_RcpPixelLineLength(&i);
+                kkm->ifptr->get_RcpPixelLineLength(&i);
                 out["RcpPixelLineLength"] = i;
-                CHECKKKM kkm->ifptr->get_JrnCharLineLength(&i);
+                kkm->ifptr->get_JrnCharLineLength(&i);
                 out["JrnCharLineLength"] = i;
-                CHECKKKM kkm->ifptr->get_JrnPixelLineLength(&i);
+                kkm->ifptr->get_JrnPixelLineLength(&i);
                 out["JrnPixelLineLength"] = i;
-                CHECKKKM kkm->ifptr->get_SlipCharLineLength(&i);
+                kkm->ifptr->get_SlipCharLineLength(&i);
                 out["SlipCharLineLength"] = i;
-                CHECKKKM kkm->ifptr->get_SlipPixelLineLength(&i);
+                kkm->ifptr->get_SlipPixelLineLength(&i);
                 out["SlipPixelLineLength"] = i;
-                CHECKKKM kkm->ifptr->get_SerialNumber(w, 63);
+                kkm->ifptr->get_SerialNumber(w, 63);
                 out["SerialNumber"] = KKM::utf8s(w);
+
+                kkm->get_operator(in, out);
                 kkm->get_date(in, out);
                 kkm->get_time(in, out);
-                kkm->get_operator(in, out);
                 kkm->get_logicalnumber(in, out);
                 kkm->get_session(in, out);
                 kkm->get_sessionopened(in, out);
@@ -214,10 +217,99 @@ KKM::function_t KKM::functions[] = {
         }
     },
     {
+        "CASSIERS", [](KKM* kkm, json in, json & out) -> int {
+            int i;
+            wchar_t w[64];
+            std::string key = "cassiers";
+            kkm->enable();
+            CHECKERROR;
+            kkm->ifptr->put_Mode(TED::Fptr::ModeProgramming);
+            kkm->ifptr->SetMode();
+            CHECKERROR;
+            for (int c = 0; c < 30; c++) {
+                kkm->ifptr->put_CaptionPurpose(c + DS::cassier_codes::cassier_1);
+                kkm->ifptr->get_CaptionIsSupported(&i);
+                if (i == 1) {
+                    kkm->ifptr->GetCaption();
+                    kkm->checkError();
+                    if (kkm->ErrorCode == EC_OK) {
+                        kkm->ifptr->get_Caption(w, 64);
+                        out[key][c]["id"] = c + 1;
+                        out[key][c]["name"] = KKM::utf8s(w);
+                    }
+                }
+                kkm->ifptr->put_CaptionPurpose(c + DS::cassier_passwords::cassier_password_1);
+                kkm->ifptr->get_CaptionIsSupported(&i);
+                if (i == 1) {
+                    kkm->ifptr->GetCaption();
+                    kkm->checkError();
+                    if (kkm->ErrorCode == EC_OK) {
+                        kkm->ifptr->get_Caption(w, 64);
+                        out[key][c]["password"] = KKM::utf8s(w);
+                    }
+                }
+            }
+            return kkm->ErrorCode;
+        }
+    },
+    {
+        "SET_CASSIERS", [](KKM* kkm, json in, json & out) -> int {
+            int i;
+            wchar_t w[64];
+            kkm->enable();
+            CHECKERROR;
+            kkm->ifptr->put_Mode(TED::Fptr::ModeProgramming);
+            kkm->ifptr->SetMode();
+            CHECKERROR;
+
+            json cassiers = in["cassiers"];
+
+            int x = 0;
+            for (auto it = cassiers.begin(); it != cassiers.end(); it++) {
+                json cassier = it.value();
+                int id = cassier["id"];
+                std::string name = cassier["name"];
+                std::string password = cassier["password"];
+
+                int e = 0;
+
+                if (id > 0 && id < 29) {
+                    kkm->ifptr->put_CaptionPurpose(DS::cassier_codes::cassier_1 + id - 1);
+                    kkm->ifptr->get_CaptionIsSupported(&i);
+                    if (i == 1) {
+                        kkm->ifptr->put_Caption(KKM::utf8w(name).c_str());
+                        kkm->ifptr->SetCaption();
+                        e |= kkm->checkError();
+                    }
+                    if (e == EC_OK) {
+                        kkm->ifptr->put_CaptionPurpose(DS::cassier_passwords::cassier_password_1 + id - 1);
+                        kkm->ifptr->get_CaptionIsSupported(&i);
+                        if (i == 1) {
+                            kkm->ifptr->put_Caption(KKM::utf8w(password).c_str());
+                            kkm->ifptr->SetCaption();
+                            e |= kkm->checkError();
+                        }
+                    }
+                    if (e == EC_OK) {
+                        out["set"]["cassiers"][x++] = cassier;
+                    } else {
+                        cassier["errorCode"] = kkm->ErrorCode;
+                        cassier["errorDescription"] = kkm->errorDesc;
+                        out["not_set"]["cassiers"][x++] = cassier;
+                    }
+                } else {
+                    cassier["errorDescription"] = "incorrect id";
+                    out["not_set"]["cassiers"][x++] = cassier;
+                }
+            }
+            return kkm->ErrorCode;
+        }
+    },
+    {
         "SETTINGS", [](KKM* kkm, json in, json & out) -> int {
             wchar_t *b;
             b = new wchar_t[4096];
-            CHECKKKM kkm->ifptr->get_DeviceSettings(b, 4096);
+            kkm->ifptr->get_DeviceSettings(b, 4096);
             out["Settings"] = KKM::utf8s(std::wstring(b));
             delete []b;
             CHECKERROR;
@@ -228,7 +320,6 @@ KKM::function_t KKM::functions[] = {
         "PRINT_TEXT", [](KKM* kkm, json in, json & out) -> int {
 
             kkm->enable() CHECKERROR;
-
             kkm->cmd_printtext(in, out);
             return kkm->ErrorCode;
         }
@@ -238,16 +329,13 @@ KKM::function_t KKM::functions[] = {
         "REPORT_X", [](KKM* kkm, json in, json & out) -> int {
 
             kkm->enable() CHECKERROR;
-
-            CHECKKKM kkm->ifptr->put_Mode(TED::Fptr::ModeReportNoClear); kkm->checkError();
-            CHECKKKM kkm->ifptr->SetMode(); kkm->checkError();
-            CHECKKKM kkm->ifptr->put_ReportType(TED::Fptr::ReportX); kkm->checkError();
-            CHECKKKM kkm->ifptr->Report(); kkm->checkError();
-
+            kkm->ifptr->put_Mode(TED::Fptr::ModeReportNoClear);
+            kkm->ifptr->SetMode();
+            CHECKERROR;
+            kkm->ifptr->put_ReportType(TED::Fptr::ReportX);
+            kkm->ifptr->Report();
+            CHECKERROR;
             KKMEXEC(DS::cmd_STATUS);
-            
-            
-
             return kkm->ErrorCode;
         }
     },
@@ -255,132 +343,31 @@ KKM::function_t KKM::functions[] = {
         "REPORT_Z", [](KKM* kkm, json in, json & out) -> int {
 
             kkm->enable() CHECKERROR;
-
-            CHECKKKM kkm->ifptr->put_Mode(TED::Fptr::ModeReportClear); kkm->checkError();
-            CHECKKKM kkm->ifptr->SetMode(); kkm->checkError();
-            CHECKKKM kkm->ifptr->put_ReportType(TED::Fptr::ReportZ); kkm->checkError();
-            CHECKKKM kkm->ifptr->Report(); kkm->checkError();
-
-//            kkm->token->clear();
-            
-            KKMEXEC(DS::cmd_STATUS);
-            
+            kkm->ifptr->put_Mode(TED::Fptr::ModeReportClear);
+            kkm->ifptr->SetMode();
             CHECKERROR;
+            kkm->ifptr->put_ReportType(TED::Fptr::ReportZ);
+            kkm->ifptr->Report();
+            CHECKERROR;
+            KKMEXEC(DS::cmd_STATUS);
+            return kkm->ErrorCode;
+        }
+    },
 
+    {
+        "SELL", [](KKM* kkm, json in, json & out) -> int {
+            in["cheque"][DS::fld_OPEN_TYPE] = TED::Fptr::ChequeSell;
+            kkm->cheque(in, out);
+            KKMEXEC(DS::cmd_STATUS);
             return kkm->ErrorCode;
         }
     },
     {
-        "SELL", [](KKM* kkm, json in, json & out) -> int {
-            kkm->enable() CHECKERROR;
-            int s_opened = kkm->checkSessionOpened() CHECKERROR;
-//            if (s_opened == 1) {
-//                if (kkm->checkAuthToken(in, out) < 0) {
-//                    return kkm->ErrorCode;
-//                }
-//            } else {
-//                kkm->token->regenerate();
-//            }
-//            if (kkm->token->number.empty()) {
-//                kkm->token->regenerate();
-//                out[DS::fld_AUTHTOKEN] = kkm->token->number;
-//            }
-            json cheque = in["cheque"];
-            json positions = cheque["positions"];
-            json cp = {};
+        "SELL_RETURN", [](KKM* kkm, json in, json & out) -> int {
 
-            int i;
-            double d;
-            std::string s;
-            
-            
-            for (auto &p : positions) {
-                json op = {};
-                s = p[DS::fld_NAME];
-                op[DS::fld_NAME] = s;
-                
-                if (p.find(DS::fld_DISCOUNT) != p.end()) {
-                    i = p[DS::fld_DISCOUNT][DS::fld_TYPE];
-                    op[DS::fld_DISCOUNT][DS::fld_TYPE] = i;
-                    d = p[DS::fld_DISCOUNT][DS::fld_SUMM];
-                    op[DS::fld_DISCOUNT][DS::fld_SUMM] = d;
-                } else {
-                    op[DS::fld_DISCOUNT] = {
-                        {DS::fld_TYPE, 0},
-                        {DS::fld_SUMM, 0}
-                    };
-                }
-                
-                i = p[DS::fld_TAX_NUMBER];
-                op[DS::fld_TAX_NUMBER] = i;
-                d = p[DS::fld_PRICE];
-                op[DS::fld_PRICE] = d;
-                d = p[DS::fld_QUANTITY];
-                op[DS::fld_QUANTITY] = d;
-                cp.push_back(op);
-            }
-
-            cheque[DS::fld_OPEN_TYPE] = TED::Fptr::ChequeSell;
-            i = cheque[DS::fld_PAYMENT_TYPE];
-            cheque[DS::fld_PAYMENT_TYPE] = i;
-
-            if (cheque.find(DS::fld_DISCOUNT) != cheque.end()) {
-                i = cheque[DS::fld_DISCOUNT][DS::fld_TYPE];
-                cheque[DS::fld_DISCOUNT][DS::fld_TYPE] = i;
-                d = cheque[DS::fld_DISCOUNT][DS::fld_SUMM];
-                cheque[DS::fld_DISCOUNT][DS::fld_SUMM] = d;
-            }
-            
-            bool cancelled = false;
-
-            kkm->cmd_opencheck(cheque, out);
-            if (kkm->ErrorCode == EC_OK) {
-
-                if (cheque.find(DS::fld_OPERATOR_POST) != cheque.end() &&
-                        cheque.find(DS::fld_OPERATOR_NAME) != cheque.end()) {
-                    json text;
-                    std::string opPost = cheque[DS::fld_OPERATOR_POST];
-                    std::string opName = cheque[DS::fld_OPERATOR_NAME];
-                    text[DS::fld_TEXT] = opPost + ": " + opName;
-                    CHECKKKM kkm->cmd_printtext(text, out);
-                }
-                if (cheque.find(DS::fld_OPERATOR_CONTACT) != cheque.end()) {
-                    json text;
-                    std::string opContact = cheque[DS::fld_OPERATOR_CONTACT];
-                    text[DS::fld_TEXT] = "Адрес продавца: " + opContact;
-                    CHECKKKM kkm->cmd_printtext(text, out);
-                }
-
-                for (auto &p : cp) {
-                    CHECKKKM kkm->cmd_registrationfz54(p, out);
-                    if(kkm->ErrorCode != EC_OK){
-                        cancelled = true;
-                        break;
-                    }
-                }
-
-                if(!cancelled){
-                    kkm->cmd_closecheck(cheque, out);
-                }
-                
-                if (kkm->ErrorCode != EC_OK) {
-                    int b_ec = kkm->ErrorCode;
-                    std::string b_ed = kkm->errorDesc;
-                    sleep(1);
-                    kkm->ErrorCode = EC_OK;
-                    KKMEXEC("ROLL");
-                    kkm->cmd_printtext({
-                        {DS::fld_TEXT, "Ошибка: " + b_ed}
-                    }, out);
-                    kkm->cmd_cancelcheck(in, out);
-                    kkm->ErrorCode = b_ec;
-                    kkm->errorDesc = b_ed;
-                }
-            }
-
-
+            in["cheque"][DS::fld_OPEN_TYPE] = TED::Fptr::ChequeSellReturn;
+            kkm->cheque(in, out);
             KKMEXEC(DS::cmd_STATUS);
-
             return kkm->ErrorCode;
         }
     },
@@ -552,12 +539,12 @@ std::wstring KKM::s2ws(const std::string& s) {
 
 std::string KKM::utf8s(std::wstring in) {
     return utf_to_utf<char>(in.c_str(), in.c_str() + in.size());
-//    std::wstring_convert < std::codecvt_utf8<wchar_t>, wchar_t> conv;
-//    return conv.to_bytes(in).data();
+    //    std::wstring_convert < std::codecvt_utf8<wchar_t>, wchar_t> conv;
+    //    return conv.to_bytes(in).data();
 }
 
 std::wstring KKM::utf8w(std::string in) {
     return utf_to_utf<wchar_t>(in.c_str(), in.c_str() + in.size());
-//    std::wstring_convert < std::codecvt_utf8<wchar_t>, wchar_t> conv;
-//    return conv.from_bytes(in).data();
+    //    std::wstring_convert < std::codecvt_utf8<wchar_t>, wchar_t> conv;
+    //    return conv.from_bytes(in).data();
 }

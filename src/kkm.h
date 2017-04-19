@@ -65,10 +65,14 @@ public:
 
 //    int checkAuthToken(json, json &);
 
+    int cheque(json, json &);
+    
+    
     int cmd_cancelcheck(json, json &);
     int cmd_closecheck(json, json &);
     int cmd_opencheck(json, json &);
     int cmd_registrationfz54(json, json &);
+    int cmd_registrationfz54return(json, json &);
     int cmd_printtext(json, json &);
     
     int get_devicedescription(json, json &);
@@ -126,6 +130,8 @@ public:
     int get_systemdate( json in, json & out);
     int get_time( json in, json & out);
     int set_time( json in, json & out);
+    
+    int get_cassierInfo(json in, json &out);
     
     //int set_systemtime( json in, json & out);
     //int set_systemdate( json in, json & out);

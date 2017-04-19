@@ -16,6 +16,14 @@
 
 class DS {
 public:
+    
+    enum cassier_codes{
+        cassier_1 = 89,
+    };
+    enum cassier_passwords{
+        cassier_password_1 = 6,
+    };
+    
     static constexpr const char* msg_NO_FUNCTION = "No function";
     static constexpr const char* msg_INVALID_INTERFACE = "Invalid interface";
     static constexpr const char* msg_AUTHTOKEN_REQUIRED = "Auth token required";
@@ -57,6 +65,8 @@ public:
     static constexpr const char* fld_COMMAND = "command";
     static constexpr const char* fld_OPERATOR_POST = "operatorPost";
     static constexpr const char* fld_OPERATOR_NAME = "operatorName";
+    static constexpr const char* fld_OPERATOR_ID = "operatorId";
+    static constexpr const char* fld_OPERATOR_PASSWORD = "operatorPassword";
     static constexpr const char* fld_OPEN = "open";
     static constexpr const char* fld_OPEN_TYPE = "openType";
     static constexpr const char* fld_CLOSE = "close";
