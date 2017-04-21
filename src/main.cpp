@@ -48,14 +48,14 @@ int main(int argc, char** argv, char **envp) {
 
     std::string postdata = CGI::getPostData();
 
-    if(argc == 2){
+    if (argc == 2) {
         postdata = argv[1];
-//        postdata = "{\"command\":\"SET_DATE\",\"parameters\":{\"date\":\"2017-04-20\"}}";
+        //        postdata = "{\"command\":\"SET_DATE\",\"parameters\":{\"date\":\"2017-04-20\"}}";
         env[CGI::REQUEST_METHOD] = CGI::REQUEST_METHOD_POST;
-        
+
     }
-    
-    
+
+
     if (env[CGI::REQUEST_METHOD] == CGI::REQUEST_METHOD_POST) {
         try {
             pd = json::parse(postdata);
@@ -83,15 +83,16 @@ int main(int argc, char** argv, char **envp) {
                 }
 
                 KKM kkm;
-                
-//                kkm.tokenInit(sessionPath);
+
+                //                kkm.tokenInit(sessionPath);
 
                 if (!config.empty()) {
                     kkm.set_settings(KKM::utf8w(config));
                 }
-//                if (kkm.enable() == 0) {
-                    kkm.execFunc(fname, in, out);
-//                }
+                kkm.execFunc(fname, in, out);
+                if(kkm.enabled){
+                    kkm.disable();
+                }
                 EC = kkm.ErrorCode;
                 ED = kkm.errorDesc;
             } else {
@@ -109,7 +110,7 @@ int main(int argc, char** argv, char **envp) {
     result["errorCode"] = EC;
     result["errorDescription"] = ED;
     result["responseData"] = out;
-    
+
     postdata = result.dump(4);
     CGI::sendResponse(postdata);
     return 0;

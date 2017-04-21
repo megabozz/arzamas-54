@@ -273,7 +273,7 @@ KKM::function_t KKM::functions[] = {
 
                 int e = 0;
 
-                if (id > 0 && id < 29) {
+                if (id >= 1 && id < 30) {
                     kkm->ifptr->put_CaptionPurpose(DS::cassier_codes::cassier_1 + id - 1);
                     kkm->ifptr->get_CaptionIsSupported(&i);
                     if (i == 1) {
@@ -291,7 +291,7 @@ KKM::function_t KKM::functions[] = {
                         }
                     }
                     if (e == EC_OK) {
-                        out["set"]["cassiers"][x++] = cassier;
+                        out["set"]["cassiers"].push_back(cassier);
                     } else {
                         cassier["errorCode"] = kkm->ErrorCode;
                         cassier["errorDescription"] = kkm->errorDesc;
@@ -299,7 +299,7 @@ KKM::function_t KKM::functions[] = {
                     }
                 } else {
                     cassier["errorDescription"] = "incorrect id";
-                    out["not_set"]["cassiers"][x++] = cassier;
+                    out["not_set"]["cassiers"].push_back(cassier);
                 }
             }
             return kkm->ErrorCode;
@@ -329,12 +329,20 @@ KKM::function_t KKM::functions[] = {
         "REPORT_X", [](KKM* kkm, json in, json & out) -> int {
 
             kkm->enable() CHECKERROR;
+
+            if (in.find(DS::fld_OPERATOR_ID) != in.end() && in.find(DS::fld_OPERATOR_PASSWORD) != in.end()) {
+                kkm->ifptr->put_UserPassword(KKM::s2ws(in[DS::fld_OPERATOR_PASSWORD]).c_str());
+                kkm->ifptr->put_Operator(in[DS::fld_OPERATOR_ID]);
+            }
+
             kkm->ifptr->put_Mode(TED::Fptr::ModeReportNoClear);
             kkm->ifptr->SetMode();
-            CHECKERROR;
-            kkm->ifptr->put_ReportType(TED::Fptr::ReportX);
-            kkm->ifptr->Report();
-            CHECKERROR;
+            kkm->checkError();
+            if (kkm->ErrorCode == EC_OK) {
+                kkm->ifptr->put_ReportType(TED::Fptr::ReportX);
+                kkm->ifptr->Report();
+                kkm->checkError();
+            }
             KKMEXEC(DS::cmd_STATUS);
             return kkm->ErrorCode;
         }
@@ -343,12 +351,18 @@ KKM::function_t KKM::functions[] = {
         "REPORT_Z", [](KKM* kkm, json in, json & out) -> int {
 
             kkm->enable() CHECKERROR;
+            if (in.find(DS::fld_OPERATOR_ID) != in.end() && in.find(DS::fld_OPERATOR_PASSWORD) != in.end()) {
+                kkm->ifptr->put_UserPassword(KKM::s2ws(in[DS::fld_OPERATOR_PASSWORD]).c_str());
+                kkm->ifptr->put_Operator(in[DS::fld_OPERATOR_ID]);
+            }
             kkm->ifptr->put_Mode(TED::Fptr::ModeReportClear);
             kkm->ifptr->SetMode();
-            CHECKERROR;
-            kkm->ifptr->put_ReportType(TED::Fptr::ReportZ);
-            kkm->ifptr->Report();
-            CHECKERROR;
+            kkm->checkError();
+            if (kkm->ErrorCode == EC_OK) {
+                kkm->ifptr->put_ReportType(TED::Fptr::ReportZ);
+                kkm->ifptr->Report();
+                kkm->checkError();
+            }
             KKMEXEC(DS::cmd_STATUS);
             return kkm->ErrorCode;
         }
@@ -466,7 +480,7 @@ KKM::function_t KKM::functions[] = {
         }
     },
     {
-        DS::cmd_SET_DATE, [](KKM* kkm, json in, json & out) -> int {
+        DS::cmd_SET_KKMDATE, [](KKM* kkm, json in, json & out) -> int {
             kkm->enable() CHECKERROR;
             kkm->set_date(in, out);
             KKMEXEC(DS::cmd_STATUS);
@@ -474,7 +488,7 @@ KKM::function_t KKM::functions[] = {
         }
     },
     {
-        DS::cmd_SET_TIME, [](KKM* kkm, json in, json & out) -> int {
+        DS::cmd_SET_KKMTIME, [](KKM* kkm, json in, json & out) -> int {
             kkm->enable() CHECKERROR;
             kkm->set_time(in, out);
             KKMEXEC(DS::cmd_STATUS);
@@ -529,8 +543,19 @@ int KKM::set_settings(std::wstring config) {
 }
 
 int KKM::enable() {
-    if (ErrorCode == EC_OK && ifptr->put_DeviceEnabled(1) != EC_OK) checkError();
-    return ErrorCode;
+    kkm->ifptr->put_DeviceEnabled(1);
+    CHECKERROR;
+    kkm->enabled = true;
+    return kkm->ErrorCode;
+}
+
+int KKM::disable() {
+    if (kkm->enabled) {
+        kkm->ifptr->ResetMode();
+        kkm->ifptr->put_DeviceEnabled(0);
+        kkm->enabled = false;
+    }
+    return kkm->ErrorCode;
 }
 
 std::wstring KKM::s2ws(const std::string& s) {

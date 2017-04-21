@@ -85,6 +85,7 @@ int KKM::cmd_registrationfz54(json in, json & out) {
     kkm->ifptr->put_Price(price);
     kkm->ifptr->put_TextWrap(TED::Fptr::TextWrapWord);
     kkm->ifptr->put_Name(wname.c_str());
+    
     if (!wclassifier.empty()) {
         kkm->ifptr->put_Classifier(wclassifier.data());
     }
@@ -641,11 +642,8 @@ int KKM::cheque(json in, json& out) {
     std::string s;
 
     if (cheque.find(DS::fld_OPERATOR_ID) != cheque.end() && cheque.find(DS::fld_OPERATOR_PASSWORD) != cheque.end()) {
-        int opId = cheque[DS::fld_OPERATOR_ID];
-        std::string opPassword = cheque[DS::fld_OPERATOR_PASSWORD];
-
-        kkm->ifptr->put_UserPassword(KKM::s2ws(opPassword).c_str());
-        kkm->ifptr->put_Operator(opId);
+        kkm->ifptr->put_UserPassword(KKM::s2ws(cheque[DS::fld_OPERATOR_PASSWORD]).c_str());
+        kkm->ifptr->put_Operator(cheque[DS::fld_OPERATOR_ID]);
     }
 
     for (auto &p : positions) {
@@ -703,7 +701,7 @@ int KKM::cheque(json in, json& out) {
             json text;
             std::string opContact = cheque[DS::fld_OPERATOR_CONTACT];
             text[DS::fld_TEXT] = "Адрес продавца: " + opContact;
-            CHECKKKM kkm->cmd_printtext(text, out);
+//            CHECKKKM kkm->cmd_printtext(text, out);
         }
 
         for (auto &p : cp) {

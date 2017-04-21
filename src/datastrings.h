@@ -47,8 +47,8 @@ public:
     static constexpr const char* cmd_STATUS = "STATUS";
     static constexpr const char* cmd_SELL = "SELL";
     static constexpr const char* cmd_COMMANDS = "COMMANDS";
-    static constexpr const char* cmd_SET_TIME = "SET_TIME";
-    static constexpr const char* cmd_SET_DATE = "SET_DATE";
+    static constexpr const char* cmd_SET_KKMTIME = "SET_KKMTIME";
+    static constexpr const char* cmd_SET_KKMDATE = "SET_KKMDATE";
     static constexpr const char* cmd_SET_SYSTEMDATETIME = "SET_SYSTEMDATETIME";
     static constexpr const char* cmd_SET_SYSTEMTIME = "SET_SYSTEMTIME";
     static constexpr const char* cmd_SET_SYSTEMDATE = "SET_SYSTEMDATE";

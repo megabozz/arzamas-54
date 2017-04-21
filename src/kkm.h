@@ -48,6 +48,7 @@ public:
     int execFunc(std::string, json, json &);
     int set_settings(std::wstring);
     int enable();
+    int disable();
 
     static std::string utf8s(std::wstring);
     static std::wstring s2ws(const std::string&);
@@ -146,6 +147,7 @@ public:
     };
     int checkError();
 
+    bool enabled = false;
 private:
     KKM* kkm;
 
